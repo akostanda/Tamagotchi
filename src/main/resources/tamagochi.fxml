@@ -6,25 +6,24 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane blendMode="DARKEN" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane blendMode="DARKEN" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="world.ucode.controller.Controller">
    <children>
-      <ImageView fitHeight="514.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="background4" fitHeight="514.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@java-background4.png" />
          </image>
       </ImageView>
-      <Button alignment="CENTER" blendMode="HARD_LIGHT" cache="true" contentDisplay="CENTER" layoutX="283.0" layoutY="171.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="234.0" text="Load Game" textFill="#27361f">
+      <Button fx:id="newGame" layoutX="283.0" layoutY="22.0" mnemonicParsing="false" onAction="#onClickNG" opacity="0.8" prefHeight="60.0" prefWidth="234.0" text="New Game" textAlignment="CENTER" textFill="#1e4d03">
          <font>
             <Font name="Arial Black" size="27.0" />
          </font>
       </Button>
-      <Button layoutX="283.0" layoutY="14.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="234.0" text="New Game" textAlignment="CENTER" textFill="#1e4d03">
+      <Button fx:id="loadGame" alignment="CENTER" cache="true" contentDisplay="CENTER" layoutX="283.0" layoutY="171.0" mnemonicParsing="false" onAction="#onClickLG" opacity="0.82" prefHeight="60.0" prefWidth="234.0" text="Load Game" textFill="#1e4d03">
          <font>
             <Font name="Arial Black" size="27.0" />
          </font>
       </Button>
-      <Button blendMode="HARD_LIGHT" layoutX="283.0" layoutY="334.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="234.0" text="Settings" textAlignment="CENTER" textFill="#1e4d03">
+      <Button fx:id="settings" layoutX="283.0" layoutY="334.0" mnemonicParsing="false" onAction="#onClickSt" opacity="0.81" prefHeight="60.0" prefWidth="234.0" text="Settings" textAlignment="CENTER" textFill="#1e4d03">
          <font>
             <Font name="Arial Black" size="27.0" />
          </font>

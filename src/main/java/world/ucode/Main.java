@@ -5,10 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.scene.layout.Pane;
-
+import world.ucode.controller.Controller;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -19,13 +17,16 @@ public class Main extends Application {
             Image IMAGE = new Image("duke-java-oracle.png");
         Parent root = FXMLLoader.load(getClass().getResource("/tamagochi.fxml"));
 
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 800, 450);
 
         stage.setTitle("MyTamagochi");
         stage.setScene(scene);
+//        Controller cont = new Controller();
+//        cont.initialize();
         stage.show();
-        }catch (IOException e){
-      System.out.println("hghg");
+
+        } catch (IOException e){
+          e.printStackTrace();
         }
     }
 
