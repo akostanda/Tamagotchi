@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import world.ucode.Main;
 import world.ucode.view.GameRoot;
+import world.ucode.view.NewGameButton;
 
 
 public class ControllerMenu {
@@ -19,8 +20,11 @@ public class ControllerMenu {
     public Button settings;
 
     public void onClickNG() throws Exception {
-        GameRoot game = new GameRoot();
-        game.gameBuilder(Main.primaryStage);
+//        GameRoot game = new GameRoot();
+//        game.gameBuilder(Main.primaryStage);
+        NewGameButton ngMenu = new NewGameButton();
+        ngMenu.ngMenuBuilder(Main.primaryStage);
+//        ngMenu.ngMenuBuilder();
 //        newGame.setText(newGame.getText().equals("New Game") ? "Thanks!" : "New Game");
 //        loadGame.setText("Load Game");
 //        settings.setText("Settings");
@@ -31,10 +35,14 @@ public class ControllerMenu {
         settings.setText("Settings");
 
     }
-    public void onClickSt(){
-        settings.setText("Thanks!");
-        newGame.setText("New Game");
-        loadGame.setText("Load Game");
+    public void onClickEx(){
+        System.exit(0);
+    }
+    public void newLogin(){
+        System.exit(0);
+    }
+    public void onClicSt(){
+        System.exit(0);
     }
 }
 

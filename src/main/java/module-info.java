@@ -6,6 +6,6 @@ module Tamagotchi.main {
     requires javafx.fxml;
     exports world.ucode;
     exports world.ucode.controller;
-    opens javafx.base to world.ucode;
+//    opens javafx.base to world.ucode;
 
 }
