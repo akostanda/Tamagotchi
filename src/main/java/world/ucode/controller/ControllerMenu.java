@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -17,7 +18,9 @@ public class ControllerMenu {
 //    public ImageView background4;
     public Button newGame;
     public Button loadGame;
-    public Button settings;
+    public Button exit;
+    public CheckBox dukeSet;
+    public CheckBox simbaSet;
 
     public void onClickNG() throws Exception {
 //        GameRoot game = new GameRoot();
@@ -29,21 +32,44 @@ public class ControllerMenu {
 //        loadGame.setText("Load Game");
 //        settings.setText("Settings");
     }
+    public void newLogin() throws Exception {
+    System.out.println(onDukeSt());
+        if (onDukeSt() == true) {
+            GameRoot game = new GameRoot();
+            game.gameBuilder(Main.primaryStage);
+        }
+    }
+
+    public boolean onDukeSt() {
+        if (dukeSet.isSelected()) {
+            simbaSet.setSelected(false);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public boolean onSimbaSt(){
+        if (simbaSet.isSelected()) {
+            dukeSet.setSelected(false);
+            return true;
+        }
+        else
+            return false;
+    }
+
     public void onClickLG(){
         loadGame.setText("Thanks!");
         newGame.setText("New Game");
-        settings.setText("Settings");
+        exit.setText("Settings");
 
     }
+
     public void onClickEx(){
         System.exit(0);
     }
-    public void newLogin(){
-        System.exit(0);
-    }
-    public void onClicSt(){
-        System.exit(0);
-    }
+
+
 }
 
 

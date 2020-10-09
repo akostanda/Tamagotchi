@@ -14,4 +14,13 @@ public class ControllerGame {
 //        else IMAGE = new Image("duke-java-logo3.png");
             duke.setImage(IMAGE);
     }
+
+//    public void onClickLG(){
+//        loadGame.setText("Thanks!");
+//        newGame.setText("New Game");
+//        settings.setText("Settings");
+//
+//    }
+
+
 }
