@@ -36,7 +36,7 @@
             <Font name="Arial Black" size="27.0" />
          </font>
       </Button>
-      <Pane layoutX="504.0" layoutY="16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.7" prefHeight="144.0" prefWidth="288.0" style="-fx-background-color: lightblue;">
+      <Pane layoutX="504.0" layoutY="16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="144.0" prefWidth="288.0" style="-fx-background-color: lightblue;">
          <children>
             <TextField fx:id="newGameLogin" layoutX="62.0" layoutY="49.0" onAction="#newLogin" />
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="62.0" layoutY="14.0" prefHeight="35.0" prefWidth="166.0" text="Name your character" textAlignment="CENTER" textFill="#8d6108">

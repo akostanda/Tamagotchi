@@ -1,15 +1,8 @@
 package world.ucode;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import world.ucode.controller.ControllerMenu;
 import world.ucode.view.Tmenu;
-
-import java.io.IOException;
 
 public class Main extends Application {
     public static Stage primaryStage;
@@ -27,7 +20,7 @@ public class Main extends Application {
 //
 //        stage.setTitle("MyTamagochi");
 //        stage.setScene(scene);
-//        Controller cont = new Controller();
+//        ControllerMenu cont = new ControllerMenu();
 //        cont.initialize();
             primaryStage.show();
 

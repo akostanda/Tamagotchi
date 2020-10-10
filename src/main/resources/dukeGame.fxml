@@ -9,7 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="world.ucode.controller.ControllerGame">
    <children>
-      <ImageView accessibleRole="BUTTON" fitHeight="514.0" fitWidth="800.0" opacity="0.71" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="mainScene" accessibleRole="BUTTON" fitHeight="514.0" fitWidth="800.0" onKeyPressed="#onKeyPressed" opacity="0.71" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@java-background2.jpg" />
          </image>
@@ -30,14 +30,14 @@
             <Font size="11.0" />
          </font>
       </TextField>
-      <ProgressBar fx:id="foodIndex" layoutX="270.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
+      <ProgressBar fx:id="hungerIndex" layoutX="266.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
       <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="490.0" layoutY="19.0" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HAPPINESS">
          <font>
             <Font size="11.0" />
          </font>
       </TextField>
-      <ProgressBar fx:id="moodIndex" layoutX="550.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="630.0" layoutY="19.0" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="CLEANLINESS">
+      <ProgressBar fx:id="happineIndex" layoutX="546.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
+      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="630.0" layoutY="19.0" opacity="0.6" prefHeight="22.0" prefWidth="92.0" style="-fx-background-color: #b5701f;" text="CLEANLINESS">
          <font>
             <Font size="11.0" />
          </font>
@@ -47,7 +47,7 @@
             <Font size="11.0" />
          </font>
       </TextField>
-      <ProgressBar fx:id="foodIndex1" layoutX="410.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <ProgressBar fx:id="moodIndex1" layoutX="690.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
+      <ProgressBar fx:id="ThirstIndex" layoutX="406.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
+      <ProgressBar fx:id="cleanlinessIndex" layoutX="716.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
    </children>
 </Pane>
