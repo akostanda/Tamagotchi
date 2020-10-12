@@ -4,10 +4,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import world.ucode.Main;
+import world.ucode.model.Hero;
 import world.ucode.view.GameRoot;
 
 public class ControllerGame {
     public ImageView duke;
+//    static Hero character;
 
     public void onTouch() {
         Image IMAGE;
@@ -17,23 +19,26 @@ public class ControllerGame {
 //        else IMAGE = new Image("duke-java-logo3.png");
             duke.setImage(IMAGE);
         duke.setTranslateX(duke.getTranslateX() + 10);
+        System.out.println(1);
     }
 
-    public void onKeyPressed() {
+    public static void onKeyPressed(Hero character) {
+//        this.character = character;
+        System.out.println(character.getTranslateX());
         GameRoot.gameScene.setOnKeyPressed(
                 event -> {
-                    System.out.println(duke.getTranslateX());
-                    System.out.println(duke.getTranslateY());
+                    System.out.println(character.getTranslateX());
+                    System.out.println(character.getTranslateY());
                     System.out.println();
                     KeyCode keyCode = event.getCode();
                     if ((keyCode.equals(keyCode.RIGHT)))
-                        duke.setTranslateX(duke.getTranslateX() + 10);
+                        character.setTranslateX(character.getTranslateX() + 10);
                     else if ((keyCode.equals(keyCode.LEFT)))
-                        duke.setTranslateX(duke.getTranslateX() - 10);
+                        character.setTranslateX(character.getTranslateX() - 10);
                     else if ((keyCode.equals(keyCode.UP)))
-                        duke.setTranslateY(duke.getTranslateY() + 5);
+                        character.setTranslateY(character.getTranslateY() - 5);
                     else if ((keyCode.equals(keyCode.DOWN)))
-                        duke.setTranslateY(duke.getTranslateY() - 5);
+                        character.setTranslateY(character.getTranslateY() + 5);
                 });
         }
 

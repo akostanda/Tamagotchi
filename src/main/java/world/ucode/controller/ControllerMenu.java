@@ -35,11 +35,12 @@ public class ControllerMenu {
 //        settings.setText("Settings");
     }
     public void newLogin() throws Exception {
-    System.out.println(onDukeSt());
-        if (onDukeSt() == true) {
+//    System.out.println(onDukeSt());
+        if (onDukeSt() ) {
             GameRoot game = new GameRoot();
-            game.gameBuilder(Main.primaryStage);
+            game.gameBuilder(Main.primaryStage, "Duke");
             //newGameLogin.getText();
+
         }
     }
 
