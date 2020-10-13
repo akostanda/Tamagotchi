@@ -23,6 +23,8 @@ public class Main extends Application {
 //        stage.setScene(scene);
 //        ControllerMenu cont = new ControllerMenu();
 //        cont.initialize();
+            primaryStage.setResizable(false);
+            primaryStage.centerOnScreen();
             primaryStage.show();
 
         } catch (IOException e) {

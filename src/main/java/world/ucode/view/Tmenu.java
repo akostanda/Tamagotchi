@@ -14,7 +14,7 @@ public class Tmenu {
             Scene scene = new Scene(root, 800, 450);
             primaryStage.setTitle("MyTamagochi");
             primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
-            primaryStage.centerOnScreen();
+//            primaryStage.setResizable(false);
+//            primaryStage.centerOnScreen();
         }
 }

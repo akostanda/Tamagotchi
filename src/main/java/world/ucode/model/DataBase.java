@@ -8,12 +8,15 @@ import java.sql.Statement;
 
 public class DataBase {
     public static Connection dbConnection;
-    public static Statement bdStatement;
+    public static Statement dbStatement;
+    public static ResultSet dbResult;
 
     public boolean dbCreation(String hero) {
         try {
+//            growthRate
             Class.forName("org.sqlite.JDBC");
             dbConnection = DriverManager.getConnection("jdbc:sqlite:DB.s3db");
+            dbStatement = dbConnection.createStatement();
             dbInsertUpdate("CREATE TABLE IF NOT EXISTS 'CHARACTERS'(" +
 //                    "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "NAME         VARCHAR(20)    PRIMARY KEY NOT NULL," +
@@ -21,28 +24,48 @@ public class DataBase {
                     "HEIGHT       DOUBLE         NOT NULL," +
                     "X            DOUBLE         NOT NULL," +
                     "Y            DOUBLE         NOT NULL);");
-            if (hero.equals("Duke")) {
+            dbInsertUpdate("CREATE TABLE IF NOT EXISTS 'IMAGES'(" +
+//                    "ID  INTEGER  PRIMARY  KEY   AUTOINCREMENT," +
+                    "CHARACTER_NAME VARCHAR(20)             NOT NULL," +
+                    "IMAGE_TYPE     VARCHAR(20)             NOT NULL," +
+                    "IMAGE_NAME     VARCHAR(20) PRIMARY KEY NOT NULL," +
+                    "WIDTH          DOUBLE                  NOT NULL," +
+                    "HEIGHT         DOUBLE                  NOT NULL);");
+      System.out.println(dbFinder("select IMAGE_NAME from IMAGES where CHARACTER_NAME = 'Duke'").getString("IMAGE_NAME"));
+            if (hero.equals("Duke") && !dbFinder("select IMAGE_NAME from IMAGES where CHARACTER_NAME = 'Duke'").getString("IMAGE_NAME").equals("duke-logo2.png")) {
                 double n = 1.4;
                 double width = 100.5 / n;
                 double height = 83.75 / n;
                 double x = 298;
                 double y = 308;
-                String command = "insert into CHARACTERS (NAME, WIDTH, HEIGHT, X, Y)" +
+                String charCommand = "insert into CHARACTERS (NAME, WIDTH, HEIGHT, X, Y)" +
                 "values ('" + hero + "', '" + width + "', '" + height + "', '" + x + "', '" + y + "')";
-                dbInsertUpdate(command);
+                try{
+
+                dbInsertUpdate(charCommand);
+                dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
+                        "values ('" + hero + "', 'MAIN_IMAGE', 'duke-logo2.png', 69.11, 83.75)");
+                dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
+                        "values ('" + hero + "', 'OK_IMAGE', 'duke-logo3.png', 104.68, 83.75)");
+                dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
+                        "values ('" + hero + "', 'HEALTH_IMAGE', 'duke-therapy.png', 164.38, 146.56)");
+                dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
+                        "values ('" + hero + "', 'HUNGER_IMAGE', 'duke-logo5.png', 112.68, 125.63)");
+                dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
+                        "values ('" + hero + "', 'THIRST_IMAGE', 'duke-logo1.png', 100.5, 83.75)");
+                dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
+                        "values ('" + hero + "', 'HAPPINESS_IMAGE', 'duke-logo6.png', 81.82, 83.75)");
+                dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
+                        "values ('" + hero + "', 'CLEANLINESS_IMAGE', 'duke-cleaning1.png', 233.58, 142.38)");
+                dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
+                        "values ('" + hero + "', 'DYING_IMAGE', 'duke-dying.png', 61.49, 92.13);");
+                dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
+                        "values ('" + hero + "', 'DEAD_IMAGE', 'duke-dead.png', 92.13, 92.13);");
+                }
+                catch(Exception e) {
+                    System.out.println(123);
+                }
             }
-            dbInsertUpdate("CREATE TABLE IF NOT EXISTS 'IMAGES'(" +
-                    "ID  INTEGER  PRIMARY  KEY   AUTOINCREMENT," +
-                    "CHARACTER_NAME    VARCHAR(20)    NOT NULL," +
-                    "MAIN_IMAGE        VARCHAR(50)    NOT NULL," +
-                    "OK_IMAGE          VARCHAR(50)    NOT NULL," +
-                    "HEALTH_IMAGE      VARCHAR(50)    NOT NULL," +
-                    "HUNGER_IMAGE      VARCHAR(50)    NOT NULL," +
-                    "THIRST_IMAGE      VARCHAR(50)    NOT NULL," +
-                    "HAPPINESS_IMAGE   VARCHAR(50)    NOT NULL," +
-                    "CLEANLINESS_IMAGE VARCHAR(50)    NOT NULL," +
-                    "DYING_IMAGE       VARCHAR(50)    NOT NULL," +
-                    "DEAD_IMAGE        VARCHAR(50)    NOT NULL);");
             return true;
         }
         catch(Exception e) {
@@ -51,22 +74,18 @@ public class DataBase {
         }
     }
 
-    private void dbInsertUpdate(String s, String hero, double width, double height, double x, double y) {
+    public void dbInsertUpdate(String query) throws Exception {
+            dbStatement.execute(query);
     }
 
-    public void dbInsertUpdate(String query) {
-        try {
-            bdStatement = dbConnection.createStatement();
-            bdStatement.execute(query);
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+    public ResultSet dbFinder(String query) throws Exception {
+            return dbStatement.executeQuery(query);
     }
 
     public void dbClose() {
         try {
             dbConnection.close();
-            bdStatement.close();
+            dbStatement.close();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }

@@ -17,9 +17,9 @@ public class NewGameButton {
         Scene scene = new Scene(root, 800, 450);
 //        stage.setTitle("MyTamagochi");
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.centerOnScreen();
-        primaryStage.show();
+//        primaryStage.setResizable(false);
+//        primaryStage.centerOnScreen();
+//        primaryStage.show();
 //        Image IMAGE = new Image("../../resources/duke-java-logo2.png");
 //        duke.setImage(IMAGE);
 

@@ -23,7 +23,7 @@
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@duke-java-playing-gitar.png" />
+            <Image url="@duke-playing-gitar.png" />
          </image>
       </ImageView>
       <Button fx:id="loadGame" alignment="CENTER" cache="true" contentDisplay="CENTER" layoutX="544.0" layoutY="173.0" mnemonicParsing="false" onAction="#onClickLG" opacity="0.89" prefHeight="60.0" prefWidth="207.0" text="Load Game" textFill="#1472a1">
