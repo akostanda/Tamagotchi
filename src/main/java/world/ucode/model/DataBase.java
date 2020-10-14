@@ -31,7 +31,7 @@ public class DataBase {
                     "IMAGE_NAME     VARCHAR(20) PRIMARY KEY NOT NULL," +
                     "WIDTH          DOUBLE                  NOT NULL," +
                     "HEIGHT         DOUBLE                  NOT NULL);");
-      System.out.println(dbFinder("select IMAGE_NAME from IMAGES where CHARACTER_NAME = 'Duke'").getString("IMAGE_NAME"));
+      System.out.println(dbFinder("select IMAGE_NAME from IMAGES where CHARACTER_NAME = 'Duke' AND IMAGE_TYPE = 'MAIN_IMAGE'").getString("IMAGE_NAME"));
             if (hero.equals("Duke") && !dbFinder("select IMAGE_NAME from IMAGES where CHARACTER_NAME = 'Duke'").getString("IMAGE_NAME").equals("duke-logo2.png")) {
                 double n = 1.4;
                 double width = 100.5 / n;
@@ -41,7 +41,6 @@ public class DataBase {
                 String charCommand = "insert into CHARACTERS (NAME, WIDTH, HEIGHT, X, Y)" +
                 "values ('" + hero + "', '" + width + "', '" + height + "', '" + x + "', '" + y + "')";
                 try{
-
                 dbInsertUpdate(charCommand);
                 dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
                         "values ('" + hero + "', 'MAIN_IMAGE', 'duke-logo2.png', 69.11, 83.75)");
@@ -80,6 +79,10 @@ public class DataBase {
 
     public ResultSet dbFinder(String query) throws Exception {
             return dbStatement.executeQuery(query);
+    }
+
+    public String requestImage(String strName, String tabelName, String characName, String imageName) {
+        return "select " + strName + " from " + tabelName + " where CHARACTER_NAME = '" + characName + "' AND IMAGE_TYPE = '" + imageName + "'";
     }
 
     public void dbClose() {

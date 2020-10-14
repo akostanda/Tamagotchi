@@ -14,11 +14,6 @@
             <Image url="@java-background2.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="duke" accessibleRole="BUTTON" fitHeight="67.0" fitWidth="125.0" layoutX="298.0" layoutY="308.0" onMousePressed="#onTouch" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@duke-java-logo3.png" />
-         </image>
-      </ImageView>
       <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="70.0" layoutY="19.0" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HEALTH">
          <font>
             <Font size="11.0" />

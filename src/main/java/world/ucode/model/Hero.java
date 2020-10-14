@@ -26,4 +26,12 @@ public class Hero extends Pane {
         this.setTranslateY(y);
         this.getChildren().add(imageView);
     }
+    public void resetImage(double width, double height, double x, double y) {
+        imageView.setFitWidth(width);
+        imageView.setFitHeight(height);
+        this.setTranslateX(x);
+        this.setTranslateY(y);
+//        this.getChildren().add(imageView);
+
+    }
 }
