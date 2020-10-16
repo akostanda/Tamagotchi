@@ -14,35 +14,35 @@
             <Image url="@java-background2.jpg" />
          </image>
       </ImageView>
-      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="70.0" layoutY="19.0" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HEALTH">
+      <TextField fx:id="HELTH" alignment="CENTER" editable="false" focusTraversable="false" layoutX="50.0" layoutY="19.0" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HEALTH">
          <font>
             <Font size="11.0" />
          </font>
       </TextField>
-      <ProgressBar fx:id="healthIndex" layoutX="126.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="210.0" layoutY="19.0" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HUNGER">
+      <ProgressBar fx:id="healthIndex" layoutX="106.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.65" rotate="-90.0" style="-fx-accent: lightgreen;" />
+      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="200.0" layoutY="19.0" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HUNGER">
          <font>
             <Font size="11.0" />
          </font>
       </TextField>
-      <ProgressBar fx:id="hungerIndex" layoutX="266.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="490.0" layoutY="19.0" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HAPPINESS">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </TextField>
-      <ProgressBar fx:id="happineIndex" layoutX="546.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="630.0" layoutY="19.0" opacity="0.6" prefHeight="22.0" prefWidth="92.0" style="-fx-background-color: #b5701f;" text="CLEANLINESS">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </TextField>
+      <ProgressBar fx:id="hungerIndex" layoutX="256.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
       <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="350.0" layoutY="19.0" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="THIRST">
          <font>
             <Font size="11.0" />
          </font>
       </TextField>
-      <ProgressBar fx:id="ThirstIndex" layoutX="406.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <ProgressBar fx:id="cleanlinessIndex" layoutX="716.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
+      <ProgressBar fx:id="thirstIndex" layoutX="406.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
+      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="500.0" layoutY="19.0" opacity="0.6" prefHeight="22.0" prefWidth="76.0" style="-fx-background-color: #b5701f;" text="HAPPINESS">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <ProgressBar fx:id="happineIndex" layoutX="570.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
+      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="650.0" layoutY="19.0" opacity="0.6" prefHeight="22.0" prefWidth="92.0" style="-fx-background-color: #b5701f;" text="CLEANLINESS">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <ProgressBar fx:id="cleanlinessIndex" layoutX="736.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
    </children>
 </Pane>

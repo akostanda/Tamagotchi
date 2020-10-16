@@ -3,13 +3,12 @@ package world.ucode.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DataBase {
     public static Connection dbConnection;
     public static Statement dbStatement;
-    public static ResultSet dbResult;
+//    public static ResultSet dbResult;
 
     public boolean dbCreation(String hero) {
         try {
@@ -20,8 +19,6 @@ public class DataBase {
             dbInsertUpdate("CREATE TABLE IF NOT EXISTS 'CHARACTERS'(" +
 //                    "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "NAME         VARCHAR(20)    PRIMARY KEY NOT NULL," +
-                    "WIDTH        DOUBLE         NOT NULL," +
-                    "HEIGHT       DOUBLE         NOT NULL," +
                     "X            DOUBLE         NOT NULL," +
                     "Y            DOUBLE         NOT NULL);");
             dbInsertUpdate("CREATE TABLE IF NOT EXISTS 'IMAGES'(" +
@@ -31,15 +28,19 @@ public class DataBase {
                     "IMAGE_NAME     VARCHAR(20) PRIMARY KEY NOT NULL," +
                     "WIDTH          DOUBLE                  NOT NULL," +
                     "HEIGHT         DOUBLE                  NOT NULL);");
-      System.out.println(dbFinder("select IMAGE_NAME from IMAGES where CHARACTER_NAME = 'Duke' AND IMAGE_TYPE = 'MAIN_IMAGE'").getString("IMAGE_NAME"));
-            if (hero.equals("Duke") && !dbFinder("select IMAGE_NAME from IMAGES where CHARACTER_NAME = 'Duke'").getString("IMAGE_NAME").equals("duke-logo2.png")) {
-                double n = 1.4;
-                double width = 100.5 / n;
-                double height = 83.75 / n;
+            dbInsertUpdate("CREATE TABLE IF NOT EXISTS 'USERS'(" +
+//                    "ID  INTEGER  PRIMARY  KEY   AUTOINCREMENT," +
+                    "LOGIN      VARCHAR(20)             NOT NULL," +
+                    "IMAGE_TYPE VARCHAR(20)             NOT NULL," +
+                    "IMAGE_NAME VARCHAR(20) PRIMARY KEY NOT NULL," +
+                    "WIDTH      DOUBLE                  NOT NULL," +
+                    "HEIGHT     DOUBLE                  NOT NULL);");
+//      System.out.println(dbFinder("select IMAGE_NAME from IMAGES where CHARACTER_NAME = 'Duke' AND IMAGE_TYPE = 'MAIN_IMAGE'").getString("IMAGE_NAME"));
+            if (hero.equals("Duke")) {
                 double x = 298;
                 double y = 308;
-                String charCommand = "insert into CHARACTERS (NAME, WIDTH, HEIGHT, X, Y)" +
-                "values ('" + hero + "', '" + width + "', '" + height + "', '" + x + "', '" + y + "')";
+                String charCommand = "insert into CHARACTERS (NAME, X, Y)" +
+                "values ('" + hero + "', '" + x + "', '" + y + "')";
                 try{
                 dbInsertUpdate(charCommand);
                 dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
@@ -83,6 +84,10 @@ public class DataBase {
 
     public String requestImage(String strName, String tabelName, String characName, String imageName) {
         return "select " + strName + " from " + tabelName + " where CHARACTER_NAME = '" + characName + "' AND IMAGE_TYPE = '" + imageName + "'";
+    }
+
+    public String requestCharacter(String strName, String tabelName, String characName) {
+        return "select " + strName + " from " + tabelName + " where NAME = '" + characName + "'";
     }
 
     public void dbClose() {

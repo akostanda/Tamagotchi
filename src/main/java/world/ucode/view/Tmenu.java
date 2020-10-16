@@ -10,6 +10,7 @@ public class Tmenu {
 
         public void menuBuilder (Stage primaryStage) throws Exception {
 //            Image IMAGE = new Image("duke-java-oracle.png");
+//            FXMLLoader loader = new FXMLLoader();
             root = FXMLLoader.load(getClass().getResource("/menu.fxml"));
             Scene scene = new Scene(root, 800, 450);
             primaryStage.setTitle("MyTamagochi");
