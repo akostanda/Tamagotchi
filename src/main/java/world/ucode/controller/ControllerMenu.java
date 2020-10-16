@@ -1,16 +1,12 @@
 package world.ucode.controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import world.ucode.Main;
+import world.ucode.model.DataBase;
 import world.ucode.view.GameRoot;
+import world.ucode.view.NewGame;
 import world.ucode.view.NewGameButton;
 
 
@@ -23,6 +19,7 @@ public class ControllerMenu {
     public TextField newGameLogin;
     public CheckBox dukeSet;
     public CheckBox simbaSet;
+    private DataBase datab = new DataBase();
 
     public void onClickNG() throws Exception {
 //        GameRoot game = new GameRoot();
@@ -36,10 +33,22 @@ public class ControllerMenu {
     }
     public void newLogin() throws Exception {
 //    System.out.println(onDukeSt());
-        if (onDukeSt() ) {
-            GameRoot game = new GameRoot();
-            game.gameBuilder(Main.primaryStage, "Duke");
-            //newGameLogin.getText();
+//        System.out.println(datab.dbChecker(newGameLogin.getText()));
+        if (onDukeSt() && datab.dbCreation("Duke")) {
+            if (newGameLogin.getText().equals("")) {
+        System.out.println("please input a name");
+            }
+//            else if (datab.dbChecker(newGameLogin.getText())) {
+//                System.out.println("there is an user wich such login");
+//            }
+            else {
+                NewGame ng = new NewGame();
+                ng.buildNG("Duke", datab);
+                GameRoot game = new GameRoot();
+                game.gameBuilder(Main.primaryStage, "/dukeGame.fxml", ng.character);
+                datab.dbInsertUpdate("insert into USERS (LOGIN) values ('" + newGameLogin.getText() + "')");
+//                System.out.println(newGameLogin.getText());
+            }
 
         }
     }

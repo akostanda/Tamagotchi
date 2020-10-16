@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class DataBase {
     public static Connection dbConnection;
     public static Statement dbStatement;
-//    public static ResultSet dbResult;
+    public static ResultSet dbResult;
 
     public boolean dbCreation(String hero) {
         try {
@@ -30,19 +30,23 @@ public class DataBase {
                     "HEIGHT         DOUBLE                  NOT NULL);");
             dbInsertUpdate("CREATE TABLE IF NOT EXISTS 'USERS'(" +
 //                    "ID  INTEGER  PRIMARY  KEY   AUTOINCREMENT," +
-                    "LOGIN      VARCHAR(20)             NOT NULL," +
-                    "IMAGE_TYPE VARCHAR(20)             NOT NULL," +
-                    "IMAGE_NAME VARCHAR(20) PRIMARY KEY NOT NULL," +
-                    "WIDTH      DOUBLE                  NOT NULL," +
-                    "HEIGHT     DOUBLE                  NOT NULL);");
+                    "LOGIN  VARCHAR(20)             NOT NULL," +
+                    "WIDTH  DOUBLE," +
+                    "HEIGHT DOUBLE," +
+                    "X      DOUBLE," +
+                    "Y      DOUBLE);");
 //      System.out.println(dbFinder("select IMAGE_NAME from IMAGES where CHARACTER_NAME = 'Duke' AND IMAGE_TYPE = 'MAIN_IMAGE'").getString("IMAGE_NAME"));
             if (hero.equals("Duke")) {
                 double x = 298;
                 double y = 308;
                 String charCommand = "insert into CHARACTERS (NAME, X, Y)" +
                 "values ('" + hero + "', '" + x + "', '" + y + "')";
+                String charCommand2 = "insert into USERS (LOGIN, WIDTH, HEIGHT, X, Y)" +
+                        "values ('" + "hero" + "', '" + 69.11 + "', '" + 83.75 + "', '" + x + "', '" + y + "')";
+//                System.out.println(dbFinder("select WIDTH from USERS where LOGIN = 'hero'").getDouble("WIDTH"));
                 try{
                 dbInsertUpdate(charCommand);
+                    dbInsertUpdate(charCommand2);
                 dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
                         "values ('" + hero + "', 'MAIN_IMAGE', 'duke-logo2.png', 69.11, 83.75)");
                 dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
@@ -80,6 +84,17 @@ public class DataBase {
 
     public ResultSet dbFinder(String query) throws Exception {
             return dbStatement.executeQuery(query);
+    }
+
+    public boolean dbChecker(String login) throws Exception {
+//        dbResult = dbStatement.executeQuery("select LOGIN from USERS");
+//        System.out.println(dbResult.getString("LOGIN"));
+//        while(dbResult.next()) {
+//            if (login.equals(dbResult.getString("LOGIN")))
+//                return true;
+////            System.out.println(dbResult.getString("LOGIN"));
+//        }
+        return false;
     }
 
     public String requestImage(String strName, String tabelName, String characName, String imageName) {
