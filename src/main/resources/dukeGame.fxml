@@ -37,7 +37,7 @@
             <Font size="11.0" />
          </font>
       </TextField>
-      <ProgressBar fx:id="happineIndex" layoutX="570.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
+      <ProgressBar fx:id="happinessIndex" layoutX="570.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
       <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="650.0" layoutY="19.0" opacity="0.6" prefHeight="22.0" prefWidth="92.0" style="-fx-background-color: #b5701f;" text="CLEANLINESS">
          <font>
             <Font size="11.0" />

@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DataBase {
-    public static Connection dbConnection;
-    public static Statement dbStatement;
-    public static ResultSet dbResult;
+    public Connection dbConnection;
+    public Statement dbStatement;
+    public ResultSet dbResult;
+//    public String hero;
 
     public boolean dbCreation(String hero) {
         try {
+//            this.hero = hero;
 //            growthRate
             Class.forName("org.sqlite.JDBC");
             dbConnection = DriverManager.getConnection("jdbc:sqlite:DB.s3db");
@@ -30,23 +32,28 @@ public class DataBase {
                     "HEIGHT         DOUBLE                  NOT NULL);");
             dbInsertUpdate("CREATE TABLE IF NOT EXISTS 'USERS'(" +
 //                    "ID  INTEGER  PRIMARY  KEY   AUTOINCREMENT," +
-                    "LOGIN  VARCHAR(20)             NOT NULL," +
-                    "WIDTH  DOUBLE," +
-                    "HEIGHT DOUBLE," +
-                    "X      DOUBLE," +
-                    "Y      DOUBLE);");
+                    "LOGIN       VARCHAR(20) NOT NULL," +
+                    "WIDTH       DOUBLE," +
+                    "HEIGHT      DOUBLE," +
+                    "X           DOUBLE," +
+                    "Y           DOUBLE," +
+                    "HEALTH      DOUBLE NOT NULL," +
+                    "HUNGER      DOUBLE NOT NULL," +
+                    "THIRST      DOUBLE NOT NULL," +
+                    "HAPPINESS   DOUBLE NOT NULL," +
+                    "CLEANLINESS DOUBLE NOT NULL);");
 //      System.out.println(dbFinder("select IMAGE_NAME from IMAGES where CHARACTER_NAME = 'Duke' AND IMAGE_TYPE = 'MAIN_IMAGE'").getString("IMAGE_NAME"));
-            if (hero.equals("Duke")) {
+            if (hero.equals("Duke") && !dbChecker("select NAME from CHARACTERS", "Duke", "NAME")) {
                 double x = 298;
                 double y = 308;
                 String charCommand = "insert into CHARACTERS (NAME, X, Y)" +
-                "values ('" + hero + "', '" + x + "', '" + y + "')";
-                String charCommand2 = "insert into USERS (LOGIN, WIDTH, HEIGHT, X, Y)" +
-                        "values ('" + "hero" + "', '" + 69.11 + "', '" + 83.75 + "', '" + x + "', '" + y + "')";
+                                     "values ('" + hero + "', '" + x + "', '" + y + "')";
+//                String charCommand2 = "insert into USERS (LOGIN, WIDTH, HEIGHT, X, Y)" +
+//                        "values ('" + "hero" + "', '" + 69.11 + "', '" + 83.75 + "', '" + x + "', '" + y + "')";
 //                System.out.println(dbFinder("select WIDTH from USERS where LOGIN = 'hero'").getDouble("WIDTH"));
                 try{
                 dbInsertUpdate(charCommand);
-                    dbInsertUpdate(charCommand2);
+//                dbInsertUpdate(charCommand2);
                 dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
                         "values ('" + hero + "', 'MAIN_IMAGE', 'duke-logo2.png', 69.11, 83.75)");
                 dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
@@ -67,7 +74,7 @@ public class DataBase {
                         "values ('" + hero + "', 'DEAD_IMAGE', 'duke-dead.png', 92.13, 92.13);");
                 }
                 catch(Exception e) {
-                    System.out.println(123);
+                    e.printStackTrace();
                 }
             }
             return true;
@@ -86,14 +93,13 @@ public class DataBase {
             return dbStatement.executeQuery(query);
     }
 
-    public boolean dbChecker(String login) throws Exception {
-//        dbResult = dbStatement.executeQuery("select LOGIN from USERS");
+    public boolean dbChecker(String query, String login, String columnName) throws Exception {
+        dbResult = dbStatement.executeQuery(query);
 //        System.out.println(dbResult.getString("LOGIN"));
-//        while(dbResult.next()) {
-//            if (login.equals(dbResult.getString("LOGIN")))
-//                return true;
-////            System.out.println(dbResult.getString("LOGIN"));
-//        }
+        while(dbResult.next()) {
+            if (login.equals(dbResult.getString(columnName)))
+                return true;
+        }
         return false;
     }
 
@@ -107,8 +113,9 @@ public class DataBase {
 
     public void dbClose() {
         try {
-            dbConnection.close();
+            dbResult.close();
             dbStatement.close();
+            dbConnection.close();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }

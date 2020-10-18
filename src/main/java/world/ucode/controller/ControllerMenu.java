@@ -13,13 +13,14 @@ import world.ucode.view.NewGameButton;
 public class ControllerMenu {
 
 //    public ImageView background4;
+    public static String login;
     public Button newGame;
     public Button loadGame;
     public Button exit;
     public TextField newGameLogin;
     public CheckBox dukeSet;
     public CheckBox simbaSet;
-    private DataBase datab = new DataBase();
+    public static DataBase datab = new DataBase();
 
     public void onClickNG() throws Exception {
 //        GameRoot game = new GameRoot();
@@ -35,19 +36,22 @@ public class ControllerMenu {
 //    System.out.println(onDukeSt());
 //        System.out.println(datab.dbChecker(newGameLogin.getText()));
         if (onDukeSt() && datab.dbCreation("Duke")) {
-            if (newGameLogin.getText().equals("")) {
-        System.out.println("please input a name");
+            login = newGameLogin.getText();
+            if (login.equals("") || login.equals("please input a name")) {
+                newGameLogin.setText("please input a name");
+                newGameLogin.selectAll();
             }
-//            else if (datab.dbChecker(newGameLogin.getText())) {
-//                System.out.println("there is an user wich such login");
-//            }
+            else if (datab.dbChecker("select LOGIN from USERS", login, "LOGIN") || login.equals("Such user already exists")) {
+                newGameLogin.setText("Such user already exists");
+                newGameLogin.selectAll();
+            }
             else {
                 NewGame ng = new NewGame();
                 ng.buildNG("Duke", datab);
-                GameRoot game = new GameRoot();
-                game.gameBuilder(Main.primaryStage, "/dukeGame.fxml", ng.character);
-                datab.dbInsertUpdate("insert into USERS (LOGIN) values ('" + newGameLogin.getText() + "')");
-//                System.out.println(newGameLogin.getText());
+                GameRoot game = new GameRoot(ng.character);
+                game.gameBuilder(Main.primaryStage, "/dukeGame.fxml");
+                datab.dbInsertUpdate("insert into USERS (LOGIN, HEALTH, HUNGER, THIRST, HAPPINESS, CLEANLINESS) " +
+                        "values ('" + login + "', '" + 0.6 + "', '" + 0.6 + "', '" + 0.6 + "', '" + 0.6 + "', '" + 0.6 + "')");
             }
 
         }
@@ -76,6 +80,30 @@ public class ControllerMenu {
         newGame.setText("New Game");
         exit.setText("Settings");
 
+    }
+
+    public void yourLogin() throws Exception {
+//    System.out.println(onDukeSt());
+//        System.out.println(datab.dbChecker(newGameLogin.getText()));
+        if (onDukeSt() && datab.dbCreation("Duke")) {
+            login = newGameLogin.getText();
+            if (login.equals("") || login.equals("please input a name")) {
+                newGameLogin.setText("please input a name");
+                newGameLogin.selectAll();
+            }
+            else if (datab.dbChecker("select LOGIN from USERS", login, "LOGIN") || login.equals("Such user already exists")) {
+                newGameLogin.setText("Such user already exists");
+                newGameLogin.selectAll();
+            }
+            else {
+                NewGame ng = new NewGame();
+                ng.buildNG("Duke", datab);
+                GameRoot game = new GameRoot(ng.character);
+                game.gameBuilder(Main.primaryStage, "/dukeGame.fxml");
+                datab.dbInsertUpdate("insert into USERS (LOGIN) values ('" + login + "')");
+            }
+
+        }
     }
 
     public void onClickEx(){
