@@ -14,8 +14,9 @@ public class GameRoot {
 //    public static DataBase datab = new DataBase();
     public static Hero character;
     double growth = 1.4;
+    public static double health;
 
-    public GameRoot(Hero character) {
+     public GameRoot(Hero character) throws Exception {
         this.character = character;
     }
     public void gameBuilder (Stage primaryStage, String fileFxml) throws Exception {

@@ -14,31 +14,31 @@
             <Image url="@java-background2.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="HELTH" alignment="CENTER" editable="false" focusTraversable="false" layoutX="50.0" layoutY="19.0" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HEALTH">
+      <TextField fx:id="helthBut" alignment="CENTER" editable="false" focusTraversable="false" layoutX="50.0" layoutY="19.0" onMouseClicked="#toHeal" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HEALTH">
          <font>
             <Font size="11.0" />
          </font>
       </TextField>
       <ProgressBar fx:id="healthIndex" layoutX="106.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.65" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="200.0" layoutY="19.0" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HUNGER">
+      <TextField fx:id="hungerBut" alignment="CENTER" editable="false" focusTraversable="false" layoutX="200.0" layoutY="19.0" onAction="#toFeed" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HUNGER">
          <font>
             <Font size="11.0" />
          </font>
       </TextField>
       <ProgressBar fx:id="hungerIndex" layoutX="256.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="350.0" layoutY="19.0" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="THIRST">
+      <TextField fx:id="thirstBut" alignment="CENTER" editable="false" focusTraversable="false" layoutX="350.0" layoutY="19.0" onAction="#toDrink" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="THIRST">
          <font>
             <Font size="11.0" />
          </font>
       </TextField>
       <ProgressBar fx:id="thirstIndex" layoutX="406.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="500.0" layoutY="19.0" opacity="0.6" prefHeight="22.0" prefWidth="76.0" style="-fx-background-color: #b5701f;" text="HAPPINESS">
+      <TextField fx:id="happinessBut" alignment="CENTER" editable="false" focusTraversable="false" layoutX="500.0" layoutY="19.0" onAction="#toPlay" opacity="0.6" prefHeight="22.0" prefWidth="76.0" style="-fx-background-color: #b5701f;" text="HAPPINESS">
          <font>
             <Font size="11.0" />
          </font>
       </TextField>
       <ProgressBar fx:id="happinessIndex" layoutX="570.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="650.0" layoutY="19.0" opacity="0.6" prefHeight="22.0" prefWidth="92.0" style="-fx-background-color: #b5701f;" text="CLEANLINESS">
+      <TextField fx:id="cleanlinessBut" alignment="CENTER" editable="false" focusTraversable="false" layoutX="650.0" layoutY="19.0" onAction="#toClean" opacity="0.6" prefHeight="22.0" prefWidth="92.0" style="-fx-background-color: #b5701f;" text="CLEANLINESS">
          <font>
             <Font size="11.0" />
          </font>
