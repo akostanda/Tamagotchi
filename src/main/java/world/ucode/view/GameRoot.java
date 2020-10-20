@@ -10,14 +10,17 @@ import world.ucode.model.Hero;
 
 public class GameRoot {
     private Pane root;
+    private long beginTime;
     public static Scene gameScene;
 //    public static DataBase datab = new DataBase();
     public static Hero character;
     double growth = 1.4;
     public static double health;
+    long n = 10000;
 
      public GameRoot(Hero character) throws Exception {
         this.character = character;
+        beginTime = System.currentTimeMillis();
     }
     public void gameBuilder (Stage primaryStage, String fileFxml) throws Exception {
 //        if (datab.dbCreation(hero)) {
@@ -35,13 +38,15 @@ public class GameRoot {
         gameScene = new Scene(root, 800, 450);;
         primaryStage.setTitle("MyTamagochi");
         primaryStage.setScene(gameScene);
-        ctrlGame.onKeyPressed(character);
+        ctrlGame.onKeyPressed();
+        ctrlGame.indicatorsDecreaser();
         primaryStage.setOnCloseRequest(ctrlGame.getCloseEventHandler());
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 try {
-                    ctrlGame.update();
+
+                    ctrlGame.update(beginTime, ++n);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

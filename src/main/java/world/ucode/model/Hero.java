@@ -3,6 +3,7 @@ package world.ucode.model;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import world.ucode.controller.ControllerMenu;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -32,5 +33,21 @@ public class Hero extends Pane {
         this.setTranslateY(y);
 //        this.getChildren().add(imageView);
 
+    }
+
+    public void changeImage(String imageUral, String imageType) throws Exception {
+        double growth = ControllerMenu.datab.dbFinder("select GROWTH from USERS where LOGIN = '" +
+                ControllerMenu.login + "'").getDouble("GROWTH");
+    System.out.println(growth);
+        this.getChildren().remove(imageView);
+        IMAGE = new Image(imageUral);
+        imageView = new ImageView(IMAGE);
+        imageView.setFitWidth(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH",
+                "IMAGES",  "Duke", imageType)).getDouble("WIDTH") / growth);
+        imageView.setFitHeight(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT",
+                "IMAGES",  "Duke", imageType)).getDouble("HEIGHT") / growth);
+//        this.setTranslateX(x);
+//        this.setTranslateY(y);
+        this.getChildren().add(imageView);
     }
 }

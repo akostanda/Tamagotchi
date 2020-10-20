@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -14,35 +14,35 @@
             <Image url="@java-background2.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="helthBut" alignment="CENTER" editable="false" focusTraversable="false" layoutX="50.0" layoutY="19.0" onMouseClicked="#toHeal" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HEALTH">
+      <Button fx:id="helthBut" accessibleRole="TEXT_FIELD" layoutX="50.0" layoutY="19.0" mnemonicParsing="false" onMouseClicked="#toHeal" opacity="0.7" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HEALTH">
          <font>
             <Font size="11.0" />
          </font>
-      </TextField>
+      </Button>
       <ProgressBar fx:id="healthIndex" layoutX="106.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.65" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <TextField fx:id="hungerBut" alignment="CENTER" editable="false" focusTraversable="false" layoutX="200.0" layoutY="19.0" onAction="#toFeed" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="HUNGER">
+      <Button fx:id="hungerBut" accessibleRole="TEXT_FIELD" layoutX="200.0" layoutY="19.0" mnemonicParsing="false" onMouseClicked="#toFeed" opacity="0.7" prefHeight="22.0" prefWidth="63.0" style="-fx-background-color: #b5701f;" text="HUNGER">
          <font>
             <Font size="11.0" />
          </font>
-      </TextField>
+      </Button>
       <ProgressBar fx:id="hungerIndex" layoutX="256.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <TextField fx:id="thirstBut" alignment="CENTER" editable="false" focusTraversable="false" layoutX="350.0" layoutY="19.0" onAction="#toDrink" opacity="0.6" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="THIRST">
+      <Button fx:id="thirstBut" accessibleRole="TEXT_FIELD" layoutX="350.0" layoutY="19.0" mnemonicParsing="false" onMouseClicked="#toDrink" opacity="0.7" prefHeight="21.0" prefWidth="62.0" style="-fx-background-color: #b5701f;" text="THIRST">
          <font>
             <Font size="11.0" />
          </font>
-      </TextField>
+      </Button>
       <ProgressBar fx:id="thirstIndex" layoutX="406.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <TextField fx:id="happinessBut" alignment="CENTER" editable="false" focusTraversable="false" layoutX="500.0" layoutY="19.0" onAction="#toPlay" opacity="0.6" prefHeight="22.0" prefWidth="76.0" style="-fx-background-color: #b5701f;" text="HAPPINESS">
+      <Button fx:id="happinessBut" accessibleRole="TEXT_FIELD" layoutX="500.0" layoutY="19.0" mnemonicParsing="false" onMouseClicked="#toPlay" opacity="0.7" prefHeight="22.0" prefWidth="78.0" style="-fx-background-color: #b5701f;" text="HAPPINESS">
          <font>
             <Font size="11.0" />
          </font>
-      </TextField>
+      </Button>
       <ProgressBar fx:id="happinessIndex" layoutX="570.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
-      <TextField fx:id="cleanlinessBut" alignment="CENTER" editable="false" focusTraversable="false" layoutX="650.0" layoutY="19.0" onAction="#toClean" opacity="0.6" prefHeight="22.0" prefWidth="92.0" style="-fx-background-color: #b5701f;" text="CLEANLINESS">
+      <Button fx:id="cleanlinessBut" accessibleRole="TEXT_FIELD" layoutX="650.0" layoutY="19.0" mnemonicParsing="false" onMouseClicked="#toClean" opacity="0.7" prefHeight="22.0" prefWidth="92.0" style="-fx-background-color: #b5701f;" text="CLEANLINESS">
          <font>
             <Font size="11.0" />
          </font>
-      </TextField>
+      </Button>
       <ProgressBar fx:id="cleanlinessIndex" layoutX="736.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" progress="0.6" rotate="-90.0" style="-fx-accent: lightgreen;" />
    </children>
 </Pane>
