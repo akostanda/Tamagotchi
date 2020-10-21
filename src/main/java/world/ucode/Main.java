@@ -3,6 +3,7 @@ package world.ucode;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import world.ucode.view.Tmenu;
+
 import java.io.IOException;
 
 public class Main extends Application {

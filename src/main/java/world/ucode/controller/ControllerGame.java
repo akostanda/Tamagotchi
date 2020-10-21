@@ -1,34 +1,31 @@
 package world.ucode.controller;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.WindowEvent;
-import javafx.util.Duration;
+import world.ucode.model.Decreaser;
 import world.ucode.model.Increaser;
 import world.ucode.view.GameRoot;
 
 public class ControllerGame {
-//    public ImageView duke;
-//    static Hero character;
-public double health;
-public static boolean trigger = false;
-    private double growth = 1.4;
-    private int decreasDuration = 300;
-    private int increasDuration = 500;
-    private int count = 0;
+    private double growth = ControllerMenu.datab.dbFinder("select GROWTH from USERS where LOGIN = '" +
+            ControllerMenu.login + "'").getDouble("GROWTH");;
+    private Decreaser healthDec;
+    private Decreaser hungerDec;
+    private Decreaser thirstDec;
+    private Decreaser happinessDec;
+    private Decreaser cleanlinessDec;
+    public static Increaser healthInc = new Increaser();
+    public static Increaser hungerInc = new Increaser();
+    public static Increaser thirstInc = new Increaser();
+    public static Increaser happinessInc = new Increaser();
+    public static Increaser cleanlinessInc = new Increaser();
     public ProgressBar healthIndex;
     public ProgressBar hungerIndex;
     public ProgressBar thirstIndex;
     public ProgressBar happinessIndex;
     public ProgressBar cleanlinessIndex;
-    private Timeline decreaser;
-    private Timeline increaser;
-//    Hero character;
 
     public ControllerGame() throws Exception {}
 
@@ -57,7 +54,6 @@ public static boolean trigger = false;
     }
 
     public void onKeyPressed() {
-//        this.character = character;
         GameRoot.gameScene.setOnKeyPressed(
                 event -> {
                     KeyCode keyCode = event.getCode();
@@ -108,100 +104,87 @@ public static boolean trigger = false;
 //    }
 
     public void indicatorsDecreaser() {
-        decreaser = new Timeline(
-                new KeyFrame(Duration.millis(decreasDuration), new EventHandler<ActionEvent>() {
-                    public void handle(ActionEvent t) {
-                        if (healthIndex.getProgress() > 0.001) {
-                            healthIndex.setProgress(healthIndex.getProgress() - 0.001);
-                            System.out.println(healthIndex.getProgress());
-                            if (healthIndex.getProgress() < 0.35) {
-                                healthIndex.setStyle("-fx-accent: #ff3f3f;");
-                           }
-                        }
-                        if (hungerIndex.getProgress() > 0.01) {
-                            hungerIndex.setProgress(hungerIndex.getProgress() - 0.01);
-//                            System.out.println(hungerIndex.getProgress());
-                            if (hungerIndex.getProgress() < 0.35) {
-                                hungerIndex.setStyle("-fx-accent: #ff3f3f;");
-                            }
-                        }
-                        if (thirstIndex.getProgress() > 0.03) {
-                            thirstIndex.setProgress(thirstIndex.getProgress() - 0.03);
-//                            System.out.println(thirstIndex.getProgress());
-                            if (thirstIndex.getProgress() < 0.35) {
-                                thirstIndex.setStyle("-fx-accent: #ff3f3f;");
-                            }
-                        }
-                        if (happinessIndex.getProgress() > 0.005) {
-                            happinessIndex.setProgress(happinessIndex.getProgress() - 0.005);
-//                            System.out.println(happinessIndex.getProgress());
-                            if (happinessIndex.getProgress() < 0.35) {
-                                happinessIndex.setStyle("-fx-accent: #ff3f3f;");
-                            }
-                        }
-                        if (cleanlinessIndex.getProgress() > 0.001) {
-                            cleanlinessIndex.setProgress(cleanlinessIndex.getProgress() - 0.001);
-//                            System.out.println(cleanlinessIndex.getProgress());
-                            if (cleanlinessIndex.getProgress() < 0.35) {
-                                cleanlinessIndex.setStyle("-fx-accent: #ff3f3f;");
-                            }
-                        }
-                    }
-                })
-        );
-        decreaser.setCycleCount(Timeline.INDEFINITE);
-        decreaser.play();
+        healthDec = new Decreaser(healthIndex, 0.001);
+        hungerDec = new Decreaser(hungerIndex, 0.01);
+        thirstDec = new Decreaser(thirstIndex, 0.03);
+        happinessDec = new Decreaser(happinessIndex, 0.005);
+        cleanlinessDec = new Decreaser(cleanlinessIndex, 0.001);
     }
 
     public void toHeal(MouseEvent mouseEvent) throws Exception {
-        trigger = true;
-        Increaser health = new Increaser();
-        health.increasProgress(healthIndex, "HEALTH_IMAGE", 0.01);
-//        trigger = false;
+        if (happinessIndex.getProgress() > 0.25) {
+            healthDec.decreaser.stop();
+            healthInc.increasProgress(healthIndex, healthDec.decreaser, "HEALTH_IMAGE", 0.01);
+        }
+//        else {
+//            GameRoot.character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
+//                "IMAGES",  "Duke", "UNHAPPY_IMAGE")).getString("IMAGE_NAME"),
+//                "UNHAPPY_IMAGE");
+//        }
     }
 
     public void toFeed(MouseEvent mouseEvent) throws Exception {
-        Increaser hunger = new Increaser();
-        hunger.increasProgress(hungerIndex, "HUNGER_IMAGE", 0.1);
-
+        if (happinessIndex.getProgress() > 0.25) {
+            hungerDec.decreaser.stop();
+            hungerInc.increasProgress(hungerIndex, hungerDec.decreaser,"HUNGER_IMAGE", 0.1);
+        }
     }
 
-    public void toDrink(MouseEvent mouseEvent) {
+    public void toDrink(MouseEvent mouseEvent) throws Exception {
+        if (happinessIndex.getProgress() > 0.25) {
+            thirstDec.decreaser.stop();
+            thirstInc.increasProgress(thirstIndex, thirstDec.decreaser,"THIRST_IMAGE", 0.3);
+        }
     }
 
-    public void toPlay(MouseEvent mouseEvent) {
+    public void toPlay(MouseEvent mouseEvent) throws Exception {
+        happinessDec.decreaser.stop();
+        happinessInc.increasProgress(happinessIndex, happinessDec.decreaser,"HAPPINESS_IMAGE", 0.05);
     }
 
-    public void toClean(MouseEvent mouseEvent) {
+    public void toClean(MouseEvent mouseEvent) throws Exception {
+        if (happinessIndex.getProgress() > 0.25) {
+            cleanlinessDec.decreaser.stop();
+            cleanlinessInc.increasProgress(cleanlinessIndex, cleanlinessDec.decreaser,"CLEANLINESS_IMAGE", 0.01);
+        }
     }
 
     public  void update(long beginTime, long pastTime) throws Exception {
-//        long pastTime2 = pastTime;
-//
-//        if (System.currentTimeMillis() > (beginTime + pastTime2) && healthIndex.getProgress() > 0.1) {
-//            System.out.println("beginTime = " + beginTime);
-//            System.out.println("pastTime2 = " + pastTime2);
-//            System.out.println(System.currentTimeMillis() + " = " + (beginTime + pastTime2));
-//            healthIndex.setProgress(healthIndex.getProgress() - 0.001);
-//            pastTime2 = pastTime2 * 2;
-//            return;
-//        }
+    //        long pastTime2 = pastTime;
+        if (happinessIndex.getProgress() < 0.25) {
+            GameRoot.character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
+                "IMAGES",  "Duke", "UNHAPPY_IMAGE")).getString("IMAGE_NAME"),
+                "UNHAPPY_IMAGE");
+
+        }
+        else if (happinessIndex.getProgress() > 0.25)
+    //        if (System.currentTimeMillis() > (beginTime + pastTime2) && healthIndex.getProgress()
+    // > 0.1) {
+    //            System.out.println("beginTime = " + beginTime);
+    //            System.out.println("pastTime2 = " + pastTime2);
+    //            System.out.println(System.currentTimeMillis() + " = " + (beginTime + pastTime2));
+    //            healthIndex.setProgress(healthIndex.getProgress() - 0.001);
+    //            pastTime2 = pastTime2 * 2;
+    //            return;
+    //        }
     //        System.out.println(ControllerMenu.datab.dbFinder("select HEALTH from USERS where LOGIN
     // = '" +
     //                ControllerMenu.login + "'").getDouble("HEALTH"));
     //    System.out.println(System.currentTimeMillis());
     //        if (healthIndex.getProgress() < 1)
     //            healthIndex.setProgress(healthIndex.getProgress() + 0.001);
-//    System.out.println(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
-//            "IMAGES",  "Duke", "THIRST_IMAGE")).getString("IMAGE_NAME"));
-//    System.out.println(health);
-//        health++;
-//        if (health % 100 == 0) {
-//            character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
-//                    "IMAGES",  "Duke", "THIRST_IMAGE")).getString("IMAGE_NAME"));
-//        }
+    //
+    // System.out.println(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
+    //            "IMAGES",  "Duke", "THIRST_IMAGE")).getString("IMAGE_NAME"));
+    //    System.out.println(health);
+    //        health++;
+    //        if (health % 100 == 0) {
+    //
+    // character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
+    //                    "IMAGES",  "Duke", "THIRST_IMAGE")).getString("IMAGE_NAME"));
+    //        }
 
-        if (GameRoot.character.getTranslateX() > 680) {
+    if (GameRoot.character.getTranslateX() > 680) {
             growth = 1;
             GameRoot.character.resetImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("WIDTH") / growth,
                     ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("HEIGHT") / growth,

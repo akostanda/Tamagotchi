@@ -73,9 +73,11 @@ public class DataBase {
                 dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
                         "values ('" + hero + "', 'HUNGER_IMAGE', 'duke-logo5.png', 112.68, 125.63)");
                 dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
-                        "values ('" + hero + "', 'THIRST_IMAGE', 'duke-logo1.png', 120.6, 100.5)");
+                        "values ('" + hero + "', 'THIRST_IMAGE', 'duke-logo1.png', 110.55, 92.13)");
                 dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
-                        "values ('" + hero + "', 'HAPPINESS_IMAGE', 'duke-logo6.png', 81.82, 83.75)");
+                        "values ('" + hero + "', 'HAPPINESS_IMAGE', 'duke-playing-gitar.png', 102.23, 92.13)");
+                dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
+                        "values ('" + hero + "', 'UNHAPPY_IMAGE', 'duke-logo6.png', 81.82, 83.75)");
                 dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +
                         "values ('" + hero + "', 'CLEANLINESS_IMAGE', 'duke-cleaning1.png', 233.58, 142.38)");
                 dbInsertUpdate("insert into IMAGES (CHARACTER_NAME, IMAGE_TYPE, IMAGE_NAME, WIDTH, HEIGHT) " +

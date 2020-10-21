@@ -38,7 +38,6 @@ public class Hero extends Pane {
     public void changeImage(String imageUral, String imageType) throws Exception {
         double growth = ControllerMenu.datab.dbFinder("select GROWTH from USERS where LOGIN = '" +
                 ControllerMenu.login + "'").getDouble("GROWTH");
-    System.out.println(growth);
         this.getChildren().remove(imageView);
         IMAGE = new Image(imageUral);
         imageView = new ImageView(IMAGE);
