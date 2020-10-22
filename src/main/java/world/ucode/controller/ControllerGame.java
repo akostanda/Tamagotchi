@@ -1,6 +1,7 @@
 package world.ucode.controller;
 
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.WindowEvent;
@@ -16,6 +17,10 @@ public class ControllerGame {
     private Decreaser thirstDec;
     private Decreaser happinessDec;
     private Decreaser cleanlinessDec;
+    public TextField sadTextFd;
+//    public TextField hungerTextFd;
+//    public TextField thirstTextFd;
+//    public TextField cleanTextFd;
     public static Increaser healthInc = new Increaser();
     public static Increaser hungerInc = new Increaser();
     public static Increaser thirstInc = new Increaser();
@@ -57,14 +62,32 @@ public class ControllerGame {
         GameRoot.gameScene.setOnKeyPressed(
                 event -> {
                     KeyCode keyCode = event.getCode();
-                    if (keyCode.equals(keyCode.D) && GameRoot.character.getTranslateX() < 740)
-                        GameRoot.character.setTranslateX(GameRoot.character.getTranslateX() + 5);
-                    else if (keyCode.equals(keyCode.A) && GameRoot.character.getTranslateX() > 10)
+                    if (keyCode.equals(keyCode.D) && GameRoot.character.getTranslateX() < 740) {
+                        GameRoot.character.setTranslateX(GameRoot.character.getTranslateX() + 10);
+                        if ((sadTextFd.getTranslateX() + 10) < 470)
+                            sadTextFd.setTranslateX(sadTextFd.getTranslateX() + 10);
+                        else
+                            sadTextFd.setTranslateX(470);
+                    }
+                    else if (keyCode.equals(keyCode.A) && GameRoot.character.getTranslateX() > 10) {
                         GameRoot.character.setTranslateX(GameRoot.character.getTranslateX() - 10);
-                    else if (keyCode.equals(keyCode.W)  && GameRoot.character.getTranslateY() > 50)
+                        if ((sadTextFd.getTranslateX() - 10) > -170)
+                            sadTextFd.setTranslateX(sadTextFd.getTranslateX() - 10);
+                        else
+                            sadTextFd.setTranslateX(-170);
+                    }
+                    else if (keyCode.equals(keyCode.W)  && GameRoot.character.getTranslateY() > 80) {
                         GameRoot.character.setTranslateY(GameRoot.character.getTranslateY() - 5);
-                    else if (keyCode.equals(keyCode.Z) && GameRoot.character.getTranslateY() < 385)
+                        if ((sadTextFd.getTranslateY() - 5) > 0)
+                            sadTextFd.setTranslateY(sadTextFd.getTranslateY() - 5);
+                        else
+                            sadTextFd.setTranslateY(0);
+                    }
+                    else if (keyCode.equals(keyCode.Z) && GameRoot.character.getTranslateY() < 385) {
                         GameRoot.character.setTranslateY(GameRoot.character.getTranslateY() + 5);
+                        sadTextFd.setTranslateY(sadTextFd.getTranslateY() + 5);
+
+                    }
                 });
     }
 
@@ -111,53 +134,90 @@ public class ControllerGame {
         cleanlinessDec = new Decreaser(cleanlinessIndex, 0.001);
     }
 
+    private void texFdset(String message) throws Exception {
+        double x = GameRoot.character.getTranslateX() - 100;
+        double y = GameRoot.character.getTranslateY() - 100;
+        sadTextFd.setText(message);
+        if (x < -170)
+            sadTextFd.setTranslateX(-170);
+        else if (x < 470)
+            sadTextFd.setTranslateX(x);
+        else
+            sadTextFd.setTranslateX(470);
+        if (y > 0)
+            sadTextFd.setTranslateY(y);
+        else
+            sadTextFd.setTranslateY(0);
+        sadTextFd.setVisible(true);
+        GameRoot.character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
+                "IMAGES",  "Duke", "UNHAPPY_IMAGE")).getString("IMAGE_NAME"),
+                "UNHAPPY_IMAGE");
+    }
+
     public void toHeal(MouseEvent mouseEvent) throws Exception {
         if (happinessIndex.getProgress() > 0.25) {
+            sadTextFd.setVisible(false);
             healthDec.decreaser.stop();
             healthInc.increasProgress(healthIndex, healthDec.decreaser, "HEALTH_IMAGE", 0.01);
         }
-//        else {
-//            GameRoot.character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
-//                "IMAGES",  "Duke", "UNHAPPY_IMAGE")).getString("IMAGE_NAME"),
-//                "UNHAPPY_IMAGE");
-//        }
+        else {
+            texFdset("I can't get well, I'm sad!");
+        }
     }
 
     public void toFeed(MouseEvent mouseEvent) throws Exception {
         if (happinessIndex.getProgress() > 0.25) {
+            sadTextFd.setVisible(false);
             hungerDec.decreaser.stop();
             hungerInc.increasProgress(hungerIndex, hungerDec.decreaser,"HUNGER_IMAGE", 0.1);
+        }
+        else {
+            texFdset("I can't eat, I'm sad!");
         }
     }
 
     public void toDrink(MouseEvent mouseEvent) throws Exception {
         if (happinessIndex.getProgress() > 0.25) {
+            sadTextFd.setVisible(false);
             thirstDec.decreaser.stop();
             thirstInc.increasProgress(thirstIndex, thirstDec.decreaser,"THIRST_IMAGE", 0.3);
+        }
+        else {
+            texFdset("I can't drink, I'm sad!");
         }
     }
 
     public void toPlay(MouseEvent mouseEvent) throws Exception {
+        sadTextFd.setVisible(false);
+//        hungerTextFd.setVisible(false);
+//        thirstTextFd.setVisible(false);
+//        cleanTextFd.setVisible(false);
         happinessDec.decreaser.stop();
         happinessInc.increasProgress(happinessIndex, happinessDec.decreaser,"HAPPINESS_IMAGE", 0.05);
     }
 
     public void toClean(MouseEvent mouseEvent) throws Exception {
         if (happinessIndex.getProgress() > 0.25) {
+            sadTextFd.setVisible(false);
             cleanlinessDec.decreaser.stop();
             cleanlinessInc.increasProgress(cleanlinessIndex, cleanlinessDec.decreaser,"CLEANLINESS_IMAGE", 0.01);
+        }
+        else {
+            texFdset("I can't clean up, I'm sad!");
         }
     }
 
     public  void update(long beginTime, long pastTime) throws Exception {
     //        long pastTime2 = pastTime;
-        if (happinessIndex.getProgress() < 0.25) {
-            GameRoot.character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
-                "IMAGES",  "Duke", "UNHAPPY_IMAGE")).getString("IMAGE_NAME"),
-                "UNHAPPY_IMAGE");
-
-        }
-        else if (happinessIndex.getProgress() > 0.25)
+//        if (happinessIndex.getProgress() < 0.25) {
+//            GameRoot.character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
+//                "IMAGES",  "Duke", "UNHAPPY_IMAGE")).getString("IMAGE_NAME"),
+//                "UNHAPPY_IMAGE");
+//
+//        }
+//        else if (happinessIndex.getProgress() > 0.25) {
+//
+//        }
     //        if (System.currentTimeMillis() > (beginTime + pastTime2) && healthIndex.getProgress()
     // > 0.1) {
     //            System.out.println("beginTime = " + beginTime);

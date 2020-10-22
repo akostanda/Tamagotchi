@@ -9,7 +9,7 @@ import world.ucode.controller.ControllerGame;
 import world.ucode.model.Hero;
 
 public class GameRoot {
-    private Pane root;
+    public static Pane root;
     private long beginTime;
     public static Scene gameScene;
 //    public static DataBase datab = new DataBase();
