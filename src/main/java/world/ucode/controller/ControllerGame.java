@@ -11,7 +11,9 @@ import world.ucode.view.GameRoot;
 
 public class ControllerGame {
     private double growth = ControllerMenu.datab.dbFinder("select GROWTH from USERS where LOGIN = '" +
-            ControllerMenu.login + "'").getDouble("GROWTH");;
+            ControllerMenu.login + "'").getDouble("GROWTH");
+    public static int count = 0;
+    private long timeToGrowth = 3000;
     private Decreaser healthDec;
     private Decreaser hungerDec;
     private Decreaser thirstDec;
@@ -62,31 +64,39 @@ public class ControllerGame {
         GameRoot.gameScene.setOnKeyPressed(
                 event -> {
                     KeyCode keyCode = event.getCode();
-                    if (keyCode.equals(keyCode.D) && GameRoot.character.getTranslateX() < 740) {
-                        GameRoot.character.setTranslateX(GameRoot.character.getTranslateX() + 10);
-                        if ((sadTextFd.getTranslateX() + 10) < 470)
-                            sadTextFd.setTranslateX(sadTextFd.getTranslateX() + 10);
-                        else
-                            sadTextFd.setTranslateX(470);
-                    }
-                    else if (keyCode.equals(keyCode.A) && GameRoot.character.getTranslateX() > 10) {
-                        GameRoot.character.setTranslateX(GameRoot.character.getTranslateX() - 10);
-                        if ((sadTextFd.getTranslateX() - 10) > -170)
-                            sadTextFd.setTranslateX(sadTextFd.getTranslateX() - 10);
-                        else
-                            sadTextFd.setTranslateX(-170);
-                    }
-                    else if (keyCode.equals(keyCode.W)  && GameRoot.character.getTranslateY() > 80) {
-                        GameRoot.character.setTranslateY(GameRoot.character.getTranslateY() - 5);
-                        if ((sadTextFd.getTranslateY() - 5) > 0)
-                            sadTextFd.setTranslateY(sadTextFd.getTranslateY() - 5);
-                        else
-                            sadTextFd.setTranslateY(0);
-                    }
-                    else if (keyCode.equals(keyCode.Z) && GameRoot.character.getTranslateY() < 385) {
-                        GameRoot.character.setTranslateY(GameRoot.character.getTranslateY() + 5);
-                        sadTextFd.setTranslateY(sadTextFd.getTranslateY() + 5);
+                    try {
+                            if (keyCode.equals(keyCode.D) && GameRoot.character.getTranslateX() < 780 - ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH",
+                                    "IMAGES",  "Duke", ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestUsers("IMAGE_TYPE",
+                                            "USERS",  ControllerMenu.login)).getString("IMAGE_TYPE"))).getDouble("WIDTH") / growth) {
+                            GameRoot.character.setTranslateX(GameRoot.character.getTranslateX() + 10);
+                            if ((sadTextFd.getTranslateX() + 10) < 470)
+                                sadTextFd.setTranslateX(sadTextFd.getTranslateX() + 10);
+                            else
+                                sadTextFd.setTranslateX(470);
+                        }
+                        else if (keyCode.equals(keyCode.A) && GameRoot.character.getTranslateX() > 10) {
+                            GameRoot.character.setTranslateX(GameRoot.character.getTranslateX() - 10);
+                            if ((sadTextFd.getTranslateX() - 10) > -170)
+                                sadTextFd.setTranslateX(sadTextFd.getTranslateX() - 10);
+                            else
+                                sadTextFd.setTranslateX(-170);
+                        }
+                        else if (keyCode.equals(keyCode.W)  && GameRoot.character.getTranslateY() > 80) {
+                            GameRoot.character.setTranslateY(GameRoot.character.getTranslateY() - 5);
+                            if ((sadTextFd.getTranslateY() - 5) > 0)
+                                sadTextFd.setTranslateY(sadTextFd.getTranslateY() - 5);
+                            else
+                                sadTextFd.setTranslateY(0);
+                        }
+                        else if (keyCode.equals(keyCode.Z) && GameRoot.character.getTranslateY() < 430 - ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT",
+                                    "IMAGES",  "Duke", ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestUsers("IMAGE_TYPE",
+                                            "USERS",  ControllerMenu.login)).getString("IMAGE_TYPE"))).getDouble("HEIGHT") / growth) {
+                            GameRoot.character.setTranslateY(GameRoot.character.getTranslateY() + 5);
+                            sadTextFd.setTranslateY(sadTextFd.getTranslateY() + 5);
 
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -152,10 +162,13 @@ public class ControllerGame {
         GameRoot.character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
                 "IMAGES",  "Duke", "UNHAPPY_IMAGE")).getString("IMAGE_NAME"),
                 "UNHAPPY_IMAGE");
+        ControllerMenu.datab.dbInsertUpdate("update USERS set IMAGE_TYPE = 'UNHAPPY_IMAGE'" +
+                " where LOGIN = '" + ControllerMenu.login + "'");
     }
 
     public void toHeal(MouseEvent mouseEvent) throws Exception {
-        if (happinessIndex.getProgress() > 0.25) {
+        if (happinessIndex.getProgress() > 0.8 && hungerIndex.getProgress() > 0.8 && thirstIndex.getProgress() > 0.8 &&
+                cleanlinessIndex.getProgress() > 0.8) {
             sadTextFd.setVisible(false);
             healthDec.decreaser.stop();
             healthInc.increasProgress(healthIndex, healthDec.decreaser, "HEALTH_IMAGE", 0.01);
@@ -166,10 +179,37 @@ public class ControllerGame {
     }
 
     public void toFeed(MouseEvent mouseEvent) throws Exception {
+        count += 2;
         if (happinessIndex.getProgress() > 0.25) {
             sadTextFd.setVisible(false);
             hungerDec.decreaser.stop();
-            hungerInc.increasProgress(hungerIndex, hungerDec.decreaser,"HUNGER_IMAGE", 0.1);
+            if (System.currentTimeMillis() > (GameRoot.beginTime + timeToGrowth) && growth > 0.8) {
+                timeToGrowth *= 2;
+                if (growth > 0.8) {
+                    growth -= 0.1;
+//                    System.out.println(growth);
+                    ControllerMenu.datab.dbInsertUpdate("update USERS set GROWTH = " + growth +
+                            " where LOGIN = '" + ControllerMenu.login + "'");
+                    GameRoot.character.resetImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("WIDTH") / growth,
+                        ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("HEIGHT") / growth,
+                        GameRoot.character.getTranslateX(),
+                        GameRoot.character.getTranslateY());
+                }
+            }
+//      System.out.println("hungerInc.increaser.getStatus(): " + hungerInc.increaser.getStatus());
+//            System.out.println("If RUNNING: " + hungerInc.increaser.getStatus().toString().equals("RUNNING"));
+//            System.out.println("If STOPPED: " + hungerInc.increaser.getStatus().toString().equals("STOPPED"));
+            if (hungerInc.increaser.getStatus().toString().equals("RUNNING")) {
+                System.out.println("The process is running");
+            }
+//            else if (hungerInc.increaser.getStatus().toString().equals("STOPPED")) {
+//                System.out.println("The process is stopped");
+//                hungerInc.increaser.play();
+//            }
+            else {
+                System.out.println("The process is new");
+                hungerInc.increasProgress(hungerIndex, hungerDec.decreaser,"HUNGER_IMAGE", 0.1);
+            }
         }
         else {
             texFdset("I can't eat, I'm sad!");
@@ -208,69 +248,52 @@ public class ControllerGame {
     }
 
     public  void update(long beginTime, long pastTime) throws Exception {
-    //        long pastTime2 = pastTime;
-//        if (happinessIndex.getProgress() < 0.25) {
-//            GameRoot.character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
-//                "IMAGES",  "Duke", "UNHAPPY_IMAGE")).getString("IMAGE_NAME"),
-//                "UNHAPPY_IMAGE");
-//
-//        }
-//        else if (happinessIndex.getProgress() > 0.25) {
-//
-//        }
-    //        if (System.currentTimeMillis() > (beginTime + pastTime2) && healthIndex.getProgress()
-    // > 0.1) {
-    //            System.out.println("beginTime = " + beginTime);
-    //            System.out.println("pastTime2 = " + pastTime2);
-    //            System.out.println(System.currentTimeMillis() + " = " + (beginTime + pastTime2));
-    //            healthIndex.setProgress(healthIndex.getProgress() - 0.001);
-    //            pastTime2 = pastTime2 * 2;
-    //            return;
-    //        }
-    //        System.out.println(ControllerMenu.datab.dbFinder("select HEALTH from USERS where LOGIN
-    // = '" +
-    //                ControllerMenu.login + "'").getDouble("HEALTH"));
-    //    System.out.println(System.currentTimeMillis());
-    //        if (healthIndex.getProgress() < 1)
-    //            healthIndex.setProgress(healthIndex.getProgress() + 0.001);
-    //
-    // System.out.println(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
-    //            "IMAGES",  "Duke", "THIRST_IMAGE")).getString("IMAGE_NAME"));
-    //    System.out.println(health);
-    //        health++;
-    //        if (health % 100 == 0) {
-    //
-    // character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
-    //                    "IMAGES",  "Duke", "THIRST_IMAGE")).getString("IMAGE_NAME"));
-    //        }
+        if (healthIndex.getProgress() < 0.2) {
+            GameRoot.character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
+                    "IMAGES",  "Duke", "DYING_IMAGE")).getString("IMAGE_NAME"),
+                    "DYING_IMAGE");
+            ControllerMenu.datab.dbInsertUpdate("update USERS set IMAGE_TYPE = 'DYING_IMAGE'" +
+                    " where LOGIN = '" + ControllerMenu.login + "'");
+        }
 
-    if (GameRoot.character.getTranslateX() > 680) {
-            growth = 1;
-            GameRoot.character.resetImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("WIDTH") / growth,
-                    ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("HEIGHT") / growth,
-                    GameRoot.character.getTranslateX(),
-                    GameRoot.character.getTranslateY());
-        }
-        else if (GameRoot.character.getTranslateX() < 80) {
-            growth = 0.8;
-            GameRoot.character.resetImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("WIDTH") / growth,
-                    ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("HEIGHT") / growth,
-                    GameRoot.character.getTranslateX(),
-                    GameRoot.character.getTranslateY());
-        }
-        else if (GameRoot.character.getTranslateY() < 60) {
-            growth = 1.6;
-            GameRoot.character.resetImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("WIDTH") / growth,
-                    ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("HEIGHT") / growth,
-                    GameRoot.character.getTranslateX(),
-                    GameRoot.character.getTranslateY());
-        }
-        else if (GameRoot.character.getTranslateY() > 380) {
-            growth = 1.2;
-            GameRoot.character.resetImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("WIDTH") / growth,
-                    ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("HEIGHT") / growth,
-                    GameRoot.character.getTranslateX(),
-                    GameRoot.character.getTranslateY());
-        }
+//    if (System.currentTimeMillis() > (beginTime + timeToGrowth) && growth > 0.8) {
+//        timeToGrowth *= 2;
+//        if (growth > 0.8) {
+//            growth--;
+//            GameRoot.character.resetImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("WIDTH") / growth,
+//                    ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("HEIGHT") / growth,
+//                    GameRoot.character.getTranslateX(),
+//                    GameRoot.character.getTranslateY());
+//        }
+//    }
+
+//    if (GameRoot.character.getTranslateX() > 680) {
+//            growth = 1;
+//            GameRoot.character.resetImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("WIDTH") / growth,
+//                    ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("HEIGHT") / growth,
+//                    GameRoot.character.getTranslateX(),
+//                    GameRoot.character.getTranslateY());
+//        }
+//        else if (GameRoot.character.getTranslateX() < 80) {
+//            growth = 0.8;
+//            GameRoot.character.resetImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("WIDTH") / growth,
+//                    ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("HEIGHT") / growth,
+//                    GameRoot.character.getTranslateX(),
+//                    GameRoot.character.getTranslateY());
+//        }
+//        else if (GameRoot.character.getTranslateY() < 60) {
+//            growth = 1.6;
+//            GameRoot.character.resetImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("WIDTH") / growth,
+//                    ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("HEIGHT") / growth,
+//                    GameRoot.character.getTranslateX(),
+//                    GameRoot.character.getTranslateY());
+//        }
+//        else if (GameRoot.character.getTranslateY() > 380) {
+//            growth = 1.2;
+//            GameRoot.character.resetImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("WIDTH") / growth,
+//                    ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT", "IMAGES",  "Duke", "MAIN_IMAGE")).getDouble("HEIGHT") / growth,
+//                    GameRoot.character.getTranslateX(),
+//                    GameRoot.character.getTranslateY());
+//        }
     }
 }

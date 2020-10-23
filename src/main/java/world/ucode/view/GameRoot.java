@@ -10,11 +10,11 @@ import world.ucode.model.Hero;
 
 public class GameRoot {
     public static Pane root;
-    private long beginTime;
+    public static long beginTime;
     public static Scene gameScene;
 //    public static DataBase datab = new DataBase();
     public static Hero character;
-    double growth = 1.4;
+    double growth;
     public static double health;
     long n = 10000;
 

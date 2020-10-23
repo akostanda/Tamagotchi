@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class Hero extends Pane {
     static Deque<Image> images = new LinkedList<Image>();
-    private Image IMAGE;
+    public Image IMAGE;
     private ImageView imageView;
 
     public Hero(String imageUral, double width, double height, double x, double y) {
@@ -38,15 +38,19 @@ public class Hero extends Pane {
     public void changeImage(String imageUral, String imageType) throws Exception {
         double growth = ControllerMenu.datab.dbFinder("select GROWTH from USERS where LOGIN = '" +
                 ControllerMenu.login + "'").getDouble("GROWTH");
+        double width = ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH",
+                "IMAGES",  "Duke", imageType)).getDouble("WIDTH") / growth;
+        double height = ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT",
+                "IMAGES",  "Duke", imageType)).getDouble("HEIGHT") / growth;
         this.getChildren().remove(imageView);
         IMAGE = new Image(imageUral);
         imageView = new ImageView(IMAGE);
-        imageView.setFitWidth(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH",
-                "IMAGES",  "Duke", imageType)).getDouble("WIDTH") / growth);
-        imageView.setFitHeight(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT",
-                "IMAGES",  "Duke", imageType)).getDouble("HEIGHT") / growth);
-//        this.setTranslateX(x);
-//        this.setTranslateY(y);
+        imageView.setFitWidth(width);
+        imageView.setFitHeight(height);
+        if (this.getTranslateX() > (780 - width))
+            this.setTranslateX(780 - width);
+        if (this.getTranslateY() > (430 - height))
+            this.setTranslateY(430 - height);
         this.getChildren().add(imageView);
     }
 }

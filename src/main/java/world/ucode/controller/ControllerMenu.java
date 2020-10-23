@@ -49,8 +49,8 @@ public class ControllerMenu {
                 newGameLogin.selectAll();
             }
             else {
-                datab.dbInsertUpdate("insert into USERS (LOGIN, CHARACTER_NAME, GROWTH, HEALTH, HUNGER, THIRST, HAPPINESS, CLEANLINESS) " +
-                        "values ('" + login + "', 'Duke', '" + 1.4 + "', '" + 0.6 + "', '" + 0.6 + "', '" + 0.6 + "', '" + 0.6 + "', '" + 0.6 + "')");
+                datab.dbInsertUpdate("insert into USERS (LOGIN, CHARACTER_NAME, IMAGE_TYPE, GROWTH, HEALTH, HUNGER, THIRST, HAPPINESS, CLEANLINESS) " +
+                        "values ('" + login + "', 'Duke', 'MAIN_IMAGE', '" + 1.4 + "', '" + 0.6 + "', '" + 0.6 + "', '" + 0.6 + "', '" + 0.6 + "', '" + 0.6 + "')");
                 NewGame ng = new NewGame();
                 ng.buildNG("Duke");
                 GameRoot game = new GameRoot(ng.character);

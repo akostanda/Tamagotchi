@@ -16,11 +16,14 @@ public class LoadGame {
 //        if (datab.dbCreation(hero)) {
         try {
         character = new Hero(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
-                "IMAGES",  hero, "MAIN_IMAGE")).getString("IMAGE_NAME"),
+                "IMAGES",  hero, ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestUsers("IMAGE_TYPE",
+                        "USERS",  ControllerMenu.login)).getString("IMAGE_TYPE"))).getString("IMAGE_NAME"),
                 ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("WIDTH",
-                        "IMAGES",  hero, "MAIN_IMAGE")).getDouble("WIDTH") / growth,
+                        "IMAGES",  hero, ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestUsers("IMAGE_TYPE",
+                                "USERS",  ControllerMenu.login)).getString("IMAGE_TYPE"))).getDouble("WIDTH") / growth,
                 ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("HEIGHT",
-                        "IMAGES",  hero, "MAIN_IMAGE")).getDouble("HEIGHT") / growth,
+                        "IMAGES",  hero, ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestUsers("IMAGE_TYPE",
+                                "USERS",  ControllerMenu.login)).getString("IMAGE_TYPE"))).getDouble("HEIGHT") / growth,
                 ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestUsers("X",
                         "USERS",  ControllerMenu.login)).getDouble("X"),
                 ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestUsers("Y",

@@ -4,7 +4,6 @@ import world.ucode.controller.ControllerMenu;
 import world.ucode.model.Hero;
 
 public class NewGame {
-
     public Hero character;
     private double growth;
 

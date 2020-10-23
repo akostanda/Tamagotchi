@@ -35,7 +35,8 @@ public class DataBase {
 //                    "ID  INTEGER  PRIMARY  KEY   AUTOINCREMENT," +
                     "LOGIN          VARCHAR(20) NOT NULL," +
                     "CHARACTER_NAME VARCHAR(20) NOT NULL," +
-                    "GROWTH         DOUBLE NOT  NULL," +
+                    "IMAGE_TYPE     VARCHAR(20) NOT NULL," +
+                    "GROWTH         DOUBLE      NOT  NULL," +
                     "X              DOUBLE," +
                     "Y              DOUBLE," +
                     "HEALTH         DOUBLE NOT  NULL," +
