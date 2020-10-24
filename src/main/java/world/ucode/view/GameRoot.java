@@ -9,6 +9,7 @@ import world.ucode.controller.ControllerGame;
 import world.ucode.model.Hero;
 
 public class GameRoot {
+    public static AnimationTimer timer;
     public static Pane root;
     public static long beginTime;
     public static Scene gameScene;
@@ -41,7 +42,7 @@ public class GameRoot {
         ctrlGame.onKeyPressed();
         ctrlGame.indicatorsDecreaser();
         primaryStage.setOnCloseRequest(ctrlGame.getCloseEventHandler());
-        AnimationTimer timer = new AnimationTimer() {
+        timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 try {

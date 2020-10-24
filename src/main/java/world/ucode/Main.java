@@ -15,15 +15,6 @@ public class Main extends Application {
             primaryStage = stage;
             Tmenu menu = new Tmenu();
             menu.menuBuilder(primaryStage);
-//            Image IMAGE = new Image("duke-java-oracle.png");
-//        Parent root = FXMLLoader.load(getClass().getResource("/menu.fxml"));
-//
-//        Scene scene = new Scene(root, 800, 450);
-//
-//        stage.setTitle("MyTamagochi");
-//        stage.setScene(scene);
-//        ControllerMenu cont = new ControllerMenu();
-//        cont.initialize();
             primaryStage.setResizable(false);
             primaryStage.centerOnScreen();
             primaryStage.show();
@@ -36,23 +27,3 @@ public class Main extends Application {
         launch(args);
     }
 }
-
-//public class Main extends Application {
-//    public static void main(String[] args)  {
-//        launch(args);
-//    }
-//    @Override
-//    public void start(Stage primaryStage) {
-//        Image IMAGE = new Image("duke-java-oracle.png");
-//        ImageView imageView = new ImageView(IMAGE);
-//        imageView.setFitHeight(500);
-//        imageView.setFitWidth(500);
-//        Pane root = new Pane();
-//        root.getChildren().add(imageView);
-//        Scene scene = new Scene(root, 800, 600);
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-//
-//        System.out.println("GTYU");
-//    }
-//}

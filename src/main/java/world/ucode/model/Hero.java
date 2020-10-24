@@ -15,9 +15,6 @@ public class Hero extends Pane {
 
     public Hero(String imageUral, double width, double height, double x, double y) {
         IMAGE = new Image(imageUral);
-//    System.out.println(IMAGE.getWidth());
-//    System.out.println(IMAGE.getHeight());
-//    System.out.println();
 
         imageView = new ImageView(IMAGE);
         imageView.setFitWidth(width);
@@ -31,7 +28,6 @@ public class Hero extends Pane {
         imageView.setFitHeight(height);
         this.setTranslateX(x);
         this.setTranslateY(y);
-//        this.getChildren().add(imageView);
 
     }
 

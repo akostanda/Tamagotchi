@@ -13,10 +13,7 @@ import world.ucode.view.LoadGameButton;
 
 
 public class ControllerMenu {
-//    public ImageView background4;
     public static String login;
-//    public Button newGame;
-//    public Button loadGame;
     public Button exit;
     public TextField newGameLogin;
     public TextField loadGameLogin;
@@ -25,18 +22,10 @@ public class ControllerMenu {
     public static DataBase datab = new DataBase();
 
     public void onClickNG() throws Exception {
-//        GameRoot game = new GameRoot();
-//        game.gameBuilder(Main.primaryStage);
         NewGameButton ngMenu = new NewGameButton();
         ngMenu.ngMenuBuilder(Main.primaryStage);
-//        ngMenu.ngMenuBuilder();
-//        newGame.setText(newGame.getText().equals("New Game") ? "Thanks!" : "New Game");
-//        loadGame.setText("Load Game");
-//        settings.setText("Settings");
     }
     public void newLogin() throws Exception {
-//    System.out.println(onDukeSt());
-//        System.out.println(datab.dbChecker(newGameLogin.getText()));
         if (onDukeSt() && datab.isConnected) {
             datab.dbCreation("Duke");
             login = newGameLogin.getText();
@@ -102,15 +91,3 @@ public class ControllerMenu {
     }
 }
 
-
-//public class ControllerMenu {
-//    @FXML
-//    public Button NewGame;
-//
-//    @FXML
-//    public void initialize(){
-//        NewGame.setOnMouseClicked(e -> {
-//            NewGame.setText("Thanks!");
-//        });
-//    }
-//}

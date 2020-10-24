@@ -17,7 +17,6 @@ public class Decreaser {
                     public void handle(ActionEvent t) {
                         if (progresIndex.getProgress() > value) {
                             progresIndex.setProgress(progresIndex.getProgress() - value);
-//                            System.out.println("decRRRprogresIndex: " + progresIndex.getProgress());
                             if (progresIndex.getProgress() < 0.35) {
                                 progresIndex.setStyle("-fx-accent: #ff3f3f;");
                             }
