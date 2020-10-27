@@ -13,7 +13,6 @@ public class LoadGame {
     };
 
     public void buildLG(String hero) throws Exception {
-//        if (datab.dbCreation(hero)) {
         try {
         character = new Hero(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
                 "IMAGES",  hero, ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestUsers("IMAGE_TYPE",
@@ -32,7 +31,5 @@ public class LoadGame {
         catch (Exception e) {
             e.printStackTrace();
         }
-//        (ControllerMenu.datab.dbFinder("select HEALTH from USERS where LOGIN = '" +
-//                ControllerMenu.login + "'").getDouble("HEALTH"));
     }
 }

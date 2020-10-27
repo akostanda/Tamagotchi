@@ -15,6 +15,7 @@ import world.ucode.Main;
 import world.ucode.model.Decreaser;
 import world.ucode.model.GameOver;
 import world.ucode.model.Increaser;
+import world.ucode.model.Sounds;
 import world.ucode.view.GameRoot;
 import world.ucode.view.Tmenu;
 
@@ -23,7 +24,10 @@ import java.net.URL;
 public class ControllerGame {
     private double growth = ControllerMenu.datab.dbFinder("select GROWTH from USERS where LOGIN = '" +
             ControllerMenu.login + "'").getDouble("GROWTH");
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer fonPlayer;
+    private Sounds thankSnd = new Sounds("/thankSound.mp3");
+    private Sounds helpSnd = new Sounds("/helpSound.mp3");
+    private Sounds dethkSnd = new Sounds("/dethSound.mp3");
     private URL filePath;
     private int soundCount = 0;
     private long timeToGrowth = 3000;
@@ -231,28 +235,47 @@ public class ControllerGame {
     }
 
     public  void update(long beginTime, long pastTime) throws Exception {
-        if (healthIndex.getProgress() < 0.3 && healthIndex.getProgress() > 0.1) {
+        if (healthIndex.getProgress() < 0.2 && healthIndex.getProgress() > 0.1 && !healthInc.increaser.getStatus().toString().equals("RUNNING")) {
             GameRoot.character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
                     "IMAGES",  "Duke", "DYING_IMAGE")).getString("IMAGE_NAME"),
                     "DYING_IMAGE");
             texFdset("I'm dying, please help!");
             ControllerMenu.datab.dbInsertUpdate("update USERS set IMAGE_TYPE = 'DYING_IMAGE'" +
                     " where LOGIN = '" + ControllerMenu.login + "'");
+            if (soundButton.isSelected()) {
+                fonPlayer.stop();
+                 if (helpSnd.mediaPlayer.getStatus().toString().equals("READY") || dethkSnd.mediaPlayer.getStatus().toString().equals("STOPPED"))
+                    helpSnd.mediaPlayer.play();
+            }
         }
-        else if (healthIndex.getProgress() <= 0.1) {
+        else if (healthIndex.getProgress() <= 0.1 && !healthInc.increaser.getStatus().toString().equals("RUNNING")) {
             GameRoot.character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
                     "IMAGES",  "Duke", "DEAD_IMAGE")).getString("IMAGE_NAME"),
                     "DEAD_IMAGE");
-            mediaPlayer.stop();
             GameOver endOfGame = new GameOver(gameOverNewGame, gameOverExit);
             endOfGame.gameOver(healthDec, hungerDec, thirstDec, happinessDec, cleanlinessDec, sadTextFd);
             texFdset("You're a sadist, I'm dead!");
             ControllerMenu.datab.dbInsertUpdate("update USERS set IMAGE_TYPE = 'DYING_IMAGE'" +
                     " where LOGIN = '" + ControllerMenu.login + "'");
+            if (soundButton.isSelected()) {
+                fonPlayer.stop();
+                helpSnd.mediaPlayer.stop();
+                if (dethkSnd.mediaPlayer.getStatus().toString().equals("READY") || dethkSnd.mediaPlayer.getStatus().toString().equals("STOPPED"))
+                    dethkSnd.mediaPlayer.play();
+            }
+            ControllerMenu.datab.dbInsertUpdate("delete from USERS where LOGIN = '" + ControllerMenu.login + "'");
+        }
+        else {
+            if (soundButton.isSelected()) {
+                helpSnd.mediaPlayer.stop();
+                dethkSnd.mediaPlayer.stop();
+                fonPlayer.play();
+            }
         }
     }
 
     public void onGameOverClickNG(ActionEvent actionEvent) throws Exception {
+        dethkSnd.mediaPlayer.stop();
         Tmenu menu = new Tmenu();
         menu.menuBuilder(Main.primaryStage);
     }
@@ -262,19 +285,31 @@ public class ControllerGame {
     }
 
     public void onSoundClick(ActionEvent actionEvent) {
-        if (soundButton.isSelected() && !gameOverNewGame.isVisible()) {
-            if (soundCount % 2 == 0)
-                filePath = ControllerGame.class.getResource("/fonMuz1.mp3");
-            else
-                filePath = ControllerGame.class.getResource("/fonMuz2.mp3");
-            Media hit = new Media(filePath.toString());
-            mediaPlayer = new MediaPlayer(hit);
-//            mediaPlayer.setAutoPlay(true);
-            mediaPlayer.setCycleCount(Timeline.INDEFINITE);
-            mediaPlayer.play();
+        if (soundButton.isSelected()) {
+            if (!gameOverNewGame.isVisible()) {
+                if (healthIndex.getProgress() < 0.3 && healthIndex.getProgress() > 0.1)
+                    helpSnd.mediaPlayer.play();
+                else {
+                    if (soundCount % 2 == 0)
+                        filePath = ControllerGame.class.getResource("/fonMuz1.mp3");
+                    else
+                        filePath = ControllerGame.class.getResource("/fonMuz2.mp3");
+                    Media hit = new Media(filePath.toString());
+                    fonPlayer = new MediaPlayer(hit);
+        //            mediaPlayer.setAutoPlay(true);
+                    fonPlayer.setCycleCount(Timeline.INDEFINITE);
+                    fonPlayer.play();
+                }
+            }
+            else if (healthIndex.getProgress() <= 0.1)
+                dethkSnd.mediaPlayer.play();
             soundCount++;
         }
-        else
-            mediaPlayer.stop();
+        else {
+            fonPlayer.stop();
+            helpSnd.mediaPlayer.stop();
+            dethkSnd.mediaPlayer.stop();
+
+        }
     }
 }
