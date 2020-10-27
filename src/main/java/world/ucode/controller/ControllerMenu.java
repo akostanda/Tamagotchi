@@ -1,5 +1,6 @@
 package world.ucode.controller;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -19,6 +20,7 @@ public class ControllerMenu {
     public TextField loadGameLogin;
     public CheckBox dukeSet;
     public CheckBox simbaSet;
+    public CheckBox someSet;
     public static DataBase datab = new DataBase();
 
     public void onClickNG() throws Exception {
@@ -53,6 +55,7 @@ public class ControllerMenu {
     public boolean onDukeSt() {
         if (dukeSet.isSelected()) {
             simbaSet.setSelected(false);
+            someSet.setSelected(false);
             return true;
         }
         else
@@ -62,6 +65,17 @@ public class ControllerMenu {
     public boolean onSimbaSt(){
         if (simbaSet.isSelected()) {
             dukeSet.setSelected(false);
+            someSet.setSelected(false);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public boolean onSomeSet(ActionEvent actionEvent) {
+        if (someSet.isSelected()) {
+            dukeSet.setSelected(false);
+            simbaSet.setSelected(false);
             return true;
         }
         else
@@ -91,5 +105,6 @@ public class ControllerMenu {
     public void onClickEx(){
         System.exit(0);
     }
+
 }
 
