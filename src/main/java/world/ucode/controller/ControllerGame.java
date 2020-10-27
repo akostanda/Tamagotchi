@@ -235,7 +235,7 @@ public class ControllerGame {
     }
 
     public  void update(long beginTime, long pastTime) throws Exception {
-        if (healthIndex.getProgress() < 0.2 && healthIndex.getProgress() > 0.1 && !healthInc.increaser.getStatus().toString().equals("RUNNING")) {
+        if (healthIndex.getProgress() < 0.15 && healthIndex.getProgress() > 0.1 && !healthInc.increaser.getStatus().toString().equals("RUNNING")) {
             GameRoot.character.changeImage(ControllerMenu.datab.dbFinder(ControllerMenu.datab.requestImage("IMAGE_NAME",
                     "IMAGES",  "Duke", "DYING_IMAGE")).getString("IMAGE_NAME"),
                     "DYING_IMAGE");
