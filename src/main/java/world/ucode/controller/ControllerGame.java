@@ -181,7 +181,7 @@ public class ControllerGame {
         if (happinessIndex.getProgress() > 0.25 && !gameOverNewGame.isVisible()) {
             sadTextFd.setVisible(false);
             hungerDec.decreaser.stop();
-            if (System.currentTimeMillis() > (GameRoot.beginTime + timeToGrowth) && growth > 0.6) {
+            if (System.currentTimeMillis() > (GameRoot.beginTime + timeToGrowth) && growth > 0.5) {
                 timeToGrowth *= 2;
                 growth -= 0.1;
                 ControllerMenu.datab.dbInsertUpdate("update USERS set GROWTH = " + growth +

@@ -9,7 +9,7 @@ import javafx.util.Duration;
 
 public class Decreaser {
     public Timeline decreaser;
-    private int decreasDuration = 300;
+    private int decreasDuration = 1000;
 
     public Decreaser(ProgressBar progresIndex, double value) {
         decreaser = new Timeline(
